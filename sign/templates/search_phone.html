@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <meta charset="UTF-8">
+    <title>Guest Manage Page</title>
+</head>
+<body role="document">
+<!-- 导航栏 -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="event_manage.html" style="font-size: 14px">发布会签到系统</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">发布会</a></li>
+                <li class="active"><a href="/guest_manage">嘉宾</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="#">{{ user }}</a></li>
+                <li class="active"><a href="/logout/">退出</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- 搜索表单 -->
+<div class="page-header" style="padding-top: 60px">
+    <div id="navbar" class="navbar-collapse collapse">
+        <form class="navbar-form" method="get" action="/search_phone/">
+            <div class="form-group">
+                <input name="phone" type="text" placeholder="电话" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">搜索</button>
+        </form>
+    </div>
+</div>
+
+<!-- 发布会列表 -->
+<div class="row">
+    <div class="col-md-6">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>id</th><th>名称</th><th>手机</th><th>Email</th><th>签到</th><th>发布会</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for guest in guests %}
+                <tr>
+                <td>{{ guest.id }}</td>
+                <td>{{ guest.realname }}</td>
+                <td>{{ guest.phone }}</td>
+                <td>{{ guest.email }}</td>
+                <td>{{ guest.sign }}</td>
+                <td>{{ guest.event_id }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
