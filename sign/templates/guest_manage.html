@@ -60,8 +60,13 @@
                     <td>{{ guest.realname }}</td>
                     <td>{{ guest.phone }}</td>
                     <td>{{ guest.email }}</td>
-                    <td>{{ guest.sign }}</td>
-                    <td>{{ guest.event_id }}</td>
+                    {% if guest.sign == 0 %}
+                        <td>未签到</td>
+                    {% endif %}
+                    {% if guest.sign == 1 %}
+                        <td>已签到</td>
+                    {% endif %}
+                    <td>{{ guest.event }}</td>
                 </tr>
             {% endfor %}
             </tbody>
