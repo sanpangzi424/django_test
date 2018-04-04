@@ -5,7 +5,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
-from sign.models import Event, Guset
+from sign.models import Event, Guest
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
@@ -39,10 +40,19 @@ def event_manage(request):
 
 @login_required
 def guest_manage(request):
-    guest_list = Guset.objects.all()
+    guest_list = Guest.objects.all()
     username = request.session.get('user', '')
+    paginator = Paginator(guest_list, 2)
+    page = request.GET.get('page')
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        contacts = paginator.page(1)
+    except EmptyPage:
+        contacts = paginator.page(paginator.num_pages)
+
     return render(request, "guest_manage.html", {'user': username,
-                                                 'guests': guest_list})
+                                                 'guests': contacts})
 
 
 def search_name(request):
@@ -58,7 +68,7 @@ def search_name(request):
 def search_phone(request):
     username = request.session.get('user', '')
     search_phone = request.GET.get('phone', '')
-    Guest_list = Guset.objects.filter(phone__contains=search_phone)
+    Guest_list = Guest.objects.filter(phone__contains=search_phone)
     if Guest_list.count() == 0:
         return HttpResponse('没有查询到结果')
     else:
@@ -66,4 +76,3 @@ def search_phone(request):
             'user': username,
             'guests': Guest_list
         })
-

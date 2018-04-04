@@ -45,24 +45,45 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>id</th><th>名称</th><th>手机</th><th>Email</th><th>签到</th><th>发布会</th>
+                <th>id</th>
+                <th>名称</th>
+                <th>手机</th>
+                <th>Email</th>
+                <th>签到</th>
+                <th>发布会</th>
             </tr>
             </thead>
             <tbody>
             {% for guest in guests %}
                 <tr>
-                <td>{{ guest.id }}</td>
-                <td>{{ guest.realname }}</td>
-                <td>{{ guest.phone }}</td>
-                <td>{{ guest.email }}</td>
-                <td>{{ guest.sign }}</td>
-                <td>{{ guest.event_id }}</td>
+                    <td>{{ guest.id }}</td>
+                    <td>{{ guest.realname }}</td>
+                    <td>{{ guest.phone }}</td>
+                    <td>{{ guest.email }}</td>
+                    <td>{{ guest.sign }}</td>
+                    <td>{{ guest.event_id }}</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
+
+<!-- 分页 -->
+<div class="paginator">
+    <span class="step-links">
+        {% if guests.has_previous %}
+            <a href="?page={{ guests.previous_page_number }}">上一页</a>
+        {% endif %}
+        <span class="current">
+            共 {{ guests.paginator.num_pages }}页, 当前第 {{ guests.number }}页
+        </span>
+        {% if guests.has_next %}
+            <a href="?page={{ guests.next_page_number }}">下一页</a>
+        {% endif %}
+    </span>
+</div>
+
 
 </body>
 </html>

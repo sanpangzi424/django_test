@@ -20,7 +20,7 @@ class Event(models.Model):
     def __unicode__(self):
         return self.name
 
-class Guset(models.Model):
+class Guest(models.Model):
     event = models.ForeignKey(Event)
     realname = models.CharField(max_length=64)
     phone = models.CharField(max_length=16)

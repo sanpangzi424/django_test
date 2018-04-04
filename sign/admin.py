@@ -1,5 +1,5 @@
 from django.contrib import admin
-from sign.models import Event, Guset
+from sign.models import Event, Guest
 
 
 class EventAdmin(admin.ModelAdmin):
@@ -15,4 +15,4 @@ class GuestAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Event, EventAdmin)
-admin.site.register(Guset, GuestAdmin)
+admin.site.register(Guest, GuestAdmin)
