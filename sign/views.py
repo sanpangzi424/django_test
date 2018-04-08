@@ -23,7 +23,7 @@ def login_action(request):
         if user is not None:
             auth.login(request, user)
             request.session['user'] = username
-            response = HttpResponseRedirect('/event_manage')
+            response = HttpResponseRedirect('/event_manage/')
             return response
         else:
             return render(request, 'index.html', {'error': u'账号密码错误'})
@@ -64,7 +64,6 @@ def sign_index(request, eid):
 def sign_index_action(request, eid):
     event = get_object_or_404(Event, id=eid)
     phone = request.POST.get('phone', '')
-    print phone
     result = Guest.objects.filter(phone=phone)
     if not result:
         return render(request, 'sign_index.html', {'event': event,

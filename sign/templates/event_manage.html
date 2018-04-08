@@ -58,9 +58,9 @@
                     <td>{{ event.id }}</td>
                     <td>{{ event.name }}</td>
                     {% if event.status == 0 %}
-                        <td>未开始</td>
-                    {% elif event.status == 1 %}
                         <td>已结束</td>
+                    {% elif event.status == 1 %}
+                        <td>未开始</td>
                     {% endif %}
                     <td>{{ event.status }}</td>
                     <td>{{ event.address }}</td>
