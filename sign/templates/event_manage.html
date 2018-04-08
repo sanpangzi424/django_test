@@ -45,18 +45,27 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>id</th><th>名称</th><th>状态</th><th>地址</th><th>时间</th>
+                <th>id</th>
+                <th>名称</th>
+                <th>状态</th>
+                <th>地址</th>
+                <th>时间</th>
             </tr>
             </thead>
             <tbody>
             {% for event in events %}
                 <tr>
-                <td>{{ event.id }}</td>
-                <td>{{ event.name }}</td>
-                <td>{{ event.status }}</td>
-                <td>{{ event.address }}</td>
-                <td>{{ event.start_time }}</td>
-                <td><a href="/sign_index/{{ event.id }}/" target="{{ event.id }}_blank">签到</a></td>
+                    <td>{{ event.id }}</td>
+                    <td>{{ event.name }}</td>
+                    {% if event.status == 0 %}
+                        <td>未开始</td>
+                    {% elif event.status == 1 %}
+                        <td>已结束</td>
+                    {% endif %}
+                    <td>{{ event.status }}</td>
+                    <td>{{ event.address }}</td>
+                    <td>{{ event.start_time }}</td>
+                    <td><a href="/sign_index/{{ event.id }}/" target="{{ event.id }}_blank">签到</a></td>
                 </tr>
             {% endfor %}
             </tbody>

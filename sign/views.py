@@ -9,12 +9,11 @@ from sign.models import Event, Guest
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-# Create your views here.
-
+# 首页
 def index(request):
     return render(request, "index.html")
 
-
+# 登录
 def login_action(request):
     if request.method == 'POST':
         username = request.POST.get('username', '')
@@ -30,6 +29,7 @@ def login_action(request):
             return render(request, 'index.html', {'error': u'账号密码错误'})
 
 
+# 会议列表
 @login_required
 def event_manage(request):
     event_list = Event.objects.all()
@@ -37,7 +37,7 @@ def event_manage(request):
     return render(request, "event_manage.html", {'user': username,
                                                  'events': event_list})
 
-
+# 嘉宾页面
 @login_required
 def guest_manage(request):
     guest_list = Guest.objects.all()
@@ -82,7 +82,9 @@ def sign_index_action(request, eid):
         return render(request, 'sign_index.html', {'event': event,
                                                    'hint': '签到成功',
                                                    'guest': result
-                                                   })
+                                                 })
+
+# 姓名查询
 def search_name(request):
     username = request.session.get('user', '')
     search_name = request.GET.get('name', '')
@@ -92,7 +94,7 @@ def search_name(request):
         'events': event_list
     })
 
-
+# 手机号查询
 def search_phone(request):
     username = request.session.get('user', '')
     search_phone = request.GET.get('phone', '')
@@ -104,3 +106,10 @@ def search_phone(request):
             'user': username,
             'guests': Guest_list
         })
+
+# 退出
+@login_required
+def logout(request):
+    auth.logout(request)
+    response = HttpResponseRedirect('/index/')
+    return response
